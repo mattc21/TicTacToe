@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
+#include <assert.h>
 
 //Some people claim its better to just have declaration here and each of these actual functions in different files.
 void printBoard(bool board[][3][2]){
@@ -70,16 +72,63 @@ int checkWin(bool board[3][3][2]){
             } 
         }
     }
+    for (i= 0; i< 2; i++){
+        for (j = 0; j < 2; j++ ){    
+            //printf("%d \n", j);        
+            if (board[j][i][0] == false || board[j+1][i][0] == false || board[j][i][1] != board[j+1][i][1]){ //
+                break;           
+            }
+            
+            if (j==1){
+                return true;
+            } 
+        }
+    }
     return false;
 
 }
 
+bool checkFull(bool board[3][3][2]){
+    //Checks entire board to see if occupied.
+    int i;
+    int j;
+    for (i= 0; i< 3; i++){
+        for (j = 0; j < 3; j++ ){    
+            //printf("%d \n", j);        
+            if (board[i][j][0] == false){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+int mygetline(char *buf, size_t size) {
+    //ripped from stackoverflow :)
+    assert(size > 0 && size <= INT_MAX);
+    size_t i = 0;
+    int ch;
+    while ((ch = fgetc(stdin)) != EOF) {  // Read until EOF ...
+        if (i + 1 < size) {
+            buf[i++] = ch;
+        }
+        if (ch == '\n') {  // ... or end of line
+            break;  
+        }
+    } 
+    buf[i] = '\0';
+    if (i == 0) { 
+        return EOF;
+    }
+    return i;
+}
+
 int * choosePos(){
     //Function that asks for a position and converts it to a position that can be used to change state..
-    char sPos[3]; //Apparently char sPos[2] doesn't work. I think it's to do with the size of the sPos string.
-                //After checking sPos[3] works so I can confirm issue is sPos.
+    char sPos[3]; //the previous issue was u didnt malloc space to your fking pointers!!
     printf("Enter position. ('19' represents position (1,9) ");
-    scanf(" %2s", &sPos[0]);  //use fgets instead as its less buggy and prone to UH
+    //fgets(&sPos[0], 3, stdin);
+    mygetline(&sPos[0], 3);
     int x = atoi(sPos);
     //printf("Value of x %d \n", x);
     //int x = 21;
@@ -88,6 +137,11 @@ int * choosePos(){
     returnPos[1] = x%10;
     //printf("Value of pos[0] in choosePos %d \n", pos[0]);
     return(&returnPos[0]);
-}  
+}
+
+
+
+
+
 
 #endif 

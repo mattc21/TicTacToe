@@ -37,25 +37,7 @@ int main(){
   
 
 
-    printf("myGame.turn is: %d \n", myGame.turn);
-    printBoard(myGame.board);
-    int pos[] = {0, 1}; 
-
-    int* gPos = &pos[0];
-    changeState(myGame.board, gPos, myGame.turn);
-    printBoard(myGame.board);
-
-    int * cPos = choosePos();
-    //printf("%d %d \n", cPos[0], cPos[1]);
-    changeState(myGame.board, cPos, myGame.turn);  //HERE'S A THOUGHT. DON'T MESS UP YOUR POINTER REFERENCE/DEREFERENCEs
-    printBoard(myGame.board);
-
-    cPos = choosePos();
-    changeState(myGame.board, cPos, myGame.turn);  //HERE'S A THOUGHT. DON'T MESS UP YOUR POINTER REFERENCE/DEREFERENCEs  
-    printBoard(myGame.board);
-
-    fputs(checkWin(myGame.board) ? "checkWin returns true\n": "checkWin returns false\n", stdout);
-    printBoard(myGame.board);
+    playGame(myGame);
 } 
 
 void playGame(game myGame){
