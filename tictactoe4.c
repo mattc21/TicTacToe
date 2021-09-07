@@ -44,14 +44,15 @@ int main(){
 void vsComputer(game myGame){
     printBoard(myGame.board);
     int *cPos;
+    int changeStateSuccess;
     while (checkWin(myGame.board) == 0 && !checkFull(myGame.board)){
         if (myGame.turn == false){
             printf("your turn!\n");
             fputs(myGame.turn ? "o turn\n" : "x turn\n", stdout);
             cPos = choosePos();
-            changeState(myGame.board, cPos, myGame.turn);  
+            changeStateSuccess = changeState(myGame.board, cPos, myGame.turn);  
             printBoard(myGame.board);
-            myGame.turn = !myGame.turn; 
+            
         }
         else{
             printf("computer turn! \n");
@@ -60,10 +61,13 @@ void vsComputer(game myGame){
             cPos[1] = bMove[1];
             changeState(myGame.board, cPos, myGame.turn);  
             printBoard(myGame.board);
-            myGame.turn = !myGame.turn;
         } 
+        if (changeStateSuccess){
+            myGame.turn = !myGame.turn; 
+        }
     }
-    fputs((checkWin(myGame.board) == 1) ? "o wins\n" : "x wins\n", stdout);
+    int checkWinResult = checkWin(myGame.board);
+    fputs((checkWinResult == 1) ? "o wins\n" : (checkWinResult == -1) ? "x wins\n" : "draw \n", stdout);
 }
 
 void vsHuman(game myGame){
