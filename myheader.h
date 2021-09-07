@@ -35,6 +35,7 @@ int min(int a, int b){
 
 void printBoard(bool board[][3][2]){
     /*
+    Prints board to stdout.
     Board looks like:
 
         |_|_|o|
@@ -64,14 +65,15 @@ int changeState(bool board[3][3][2], int* pos, bool type){
     //Changes the state of the board. Returns 1 if successful and -1 if unsuccessful.
     if (pos[0] >= 3 || pos[0] < 0 || pos[1] >= 3 || pos[1] < 0){
         printf("Error! changeState received a non-existent position! \n");
-        return;
+        return 0;
     }
     int i = *pos;
     int j = *(pos+1);
 
     //checks if pos is already occupied
     if (board[i][j][0] == true){
-        return -1;
+        printf("Already occupied position \n");
+        return 0;
     }
     board[i][j][0] = true;
     board[i][j][1] = type;
@@ -282,7 +284,7 @@ int *bestMove(bool board[3][3][2], bool turn, int alpha, int beta, int depth){
                 chosenMove[2] = bestScore;
 
                 alpha = max(alpha, bestScore);
-                //if (beta <= alpha) break; 
+                if (beta <= alpha) break; 
 				
             }
         } else{
@@ -300,7 +302,7 @@ int *bestMove(bool board[3][3][2], bool turn, int alpha, int beta, int depth){
                 chosenMove[2] = bestScore;;
 
                 alpha = min(alpha, bestScore);
-                //if (beta <= alpha) break; 
+                if (beta <= alpha) break; 
 				
             }
         }
