@@ -6,8 +6,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-//What we're going to do is implement a 2D array thats 3/3. This corresponds perfectly to every position on the board
-//perhaps board should be a struc that stores the array + whose turn it is
 
 
 typedef struct{
@@ -20,7 +18,7 @@ typedef struct{
     */
 
 
-    bool board[3][3][2]; // if you dont declare the values later its going to cause UH (Typedefs arent for declaring, just defining)
+    bool board[3][3][2]; 
     bool turn;
 }game;
 
@@ -75,7 +73,7 @@ void vsHuman(game myGame){
     while (checkWin(myGame.board) == 0 && !checkFull(myGame.board)){
         fputs(myGame.turn ? "o turn\n" : "x turn\n", stdout);
         int * cPos = choosePos();
-        changeState(myGame.board, cPos, myGame.turn);  //HERE'S A THOUGHT. DON'T MESS UP YOUR POINTER REFERENCE/DEREFERENCEs
+        changeState(myGame.board, cPos, myGame.turn); 
         printBoard(myGame.board);
         myGame.turn = !myGame.turn;
     }

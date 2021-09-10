@@ -190,7 +190,7 @@ int myGetLine(char *buf, size_t size) {
 int * choosePos(){
     //Function that asks for a position and converts it to a position that can be used to change state. Note due to use of static array, each call of choosepos will change your array
     char sPos[3]; 
-    printf("Enter position. ('19' represents position (1,9) ");
+    printf("Enter position. ('12' represents position (1,2) ");
 
     myGetLine(&sPos[0], 3);
     int x = atoi(sPos);
@@ -242,7 +242,7 @@ int *bestMove(bool board[3][3][2], bool turn, int alpha, int beta, int depth){
     //    x wins: -1
     //    draw: 0
      
-    int (*chosenMove) = (int*)malloc(3*sizeof(int));   //its gonna be the move + score
+    int (*chosenMove) = malloc(3*sizeof(int));   //xPos, yPos, score
     int i = 0;
     int j = 0;
     int count = 0;
